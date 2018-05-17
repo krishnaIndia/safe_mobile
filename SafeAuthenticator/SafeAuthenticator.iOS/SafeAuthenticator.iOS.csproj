@@ -236,7 +236,7 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <NativeReference Include="Native References/libsafe_authenticator.a">
+    <NativeReference Include="lib/non-mock/libsafe_authenticator.a">
       <Kind>Static</Kind>
       <ForceLoad>True</ForceLoad>
       <LinkerFlags>-lresolv</LinkerFlags>
@@ -252,4 +252,10 @@
     <Error Condition="!Exists('..\..\packages\Xamarin.Forms.2.5.0.280555\build\netstandard1.0\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.2.5.0.280555\build\netstandard1.0\Xamarin.Forms.targets'))" />
   </Target>
   <Import Project="..\..\packages\Xamarin.Forms.2.5.0.280555\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.5.0.280555\build\netstandard1.0\Xamarin.Forms.targets')" />
+  <Target Name="CheckNativeLibs" BeforeTargets="PrepareForBuild">
+    <ItemGroup>
+      <NativeSafeAppLibs Include="lib\**\*.a" />
+    </ItemGroup>
+    <Error Condition="'@(NativeSafeAppLibs-&gt;Count())' == '0'" Text="Missing Native Libs. Please run 'cargo script DownloadNativeLibs.crs' in SafeAuthenticator folder of repo." />
+  </Target>
 </Project>

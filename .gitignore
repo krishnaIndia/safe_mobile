@@ -30,6 +30,7 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+lib/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/

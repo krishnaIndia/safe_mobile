@@ -171,7 +171,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidNativeLibrary Include="lib\armeabi-v7a\libsafe_authenticator.so" />
+    <AndroidNativeLibrary Include="lib\non-mock\armeabi-v7a\libsafe_authenticator.so" />
     <AndroidAsset Include="..\SafeAuthenticator\crust.config">
       <Link>Assets\crust.config</Link>
     </AndroidAsset>
@@ -179,7 +179,7 @@
       <Link>Assets\log.toml</Link>
     </AndroidAsset>
     <None Include="app.config" />
-    <AndroidNativeLibrary Include="lib\x86\libsafe_authenticator.so" />
+    <AndroidNativeLibrary Include="lib\non-mock\x86\libsafe_authenticator.so" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
@@ -267,4 +267,10 @@
   <Import Project="..\..\packages\Xamarin.Android.Support.v7.AppCompat.25.4.0.2\build\MonoAndroid70\Xamarin.Android.Support.v7.AppCompat.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.v7.AppCompat.25.4.0.2\build\MonoAndroid70\Xamarin.Android.Support.v7.AppCompat.targets')" />
   <Import Project="..\..\packages\Xamarin.Android.Support.Design.25.4.0.2\build\MonoAndroid70\Xamarin.Android.Support.Design.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Design.25.4.0.2\build\MonoAndroid70\Xamarin.Android.Support.Design.targets')" />
   <Import Project="..\..\packages\Xamarin.Android.Support.Animated.Vector.Drawable.25.4.0.2\build\MonoAndroid70\Xamarin.Android.Support.Animated.Vector.Drawable.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Animated.Vector.Drawable.25.4.0.2\build\MonoAndroid70\Xamarin.Android.Support.Animated.Vector.Drawable.targets')" />
+  <Target Name="CheckNativeLibs" BeforeTargets="PrepareForBuild">
+    <ItemGroup>
+      <NativeSafeAppLibs Include="lib\**\*.so" />
+    </ItemGroup>
+    <Error Condition="'@(NativeSafeAppLibs-&gt;Count())' == '0'" Text="Missing Native Libs. Please run 'cargo script DownloadNativeLibs.crs' in SafeAuthenticator folder of repo." />
+  </Target>
 </Project>
