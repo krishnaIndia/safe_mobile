@@ -186,5 +186,10 @@ namespace SafeAuthenticator.Services {
           await CheckAndReconnect();
         });
     }
+
+        public async Task RevokeAppAccessAsync(string AppId)
+        {
+            await _authenticator.AuthRevokeAppAsync(AppId);
+        }
   }
 }
