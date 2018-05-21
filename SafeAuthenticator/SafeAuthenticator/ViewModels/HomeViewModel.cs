@@ -40,6 +40,7 @@ namespace SafeAuthenticator.ViewModels {
       try {
         IsRefreshing = true;
         var registeredApps = await Authenticator.GetRegisteredAppsAsync();
+        Apps.Clear();
         Apps.AddRange(registeredApps.Except(Apps));
         Apps.Sort();
         var acctStorageTuple = await Authenticator.GetAccountInfoAsync();
